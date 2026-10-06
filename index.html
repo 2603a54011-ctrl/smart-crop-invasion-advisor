@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Crop Invasion Advisor</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f8f3;
+            color: #1f3d2b;
+        }
+
+        header {
+            background: #1f6f43;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 17px;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 18px 0 8px;
+        }
+
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #c8d8cc;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            background: #1f6f43;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #155331;
+        }
+
+        #result {
+            border-left: 5px solid #1f6f43;
+        }
+
+        #result h2 {
+            margin-top: 0;
+        }
+
+        #result h3 {
+            margin-top: 22px;
+            color: #1f6f43;
+        }
+
+        #riskLevel {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: #fff3cd;
+            color: #856404;
+            font-weight: bold;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ddd;
+            margin: 25px 0;
+        }
+
+        .warning {
+            margin-top: 25px;
+            padding: 12px;
+            background: #fff8e1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🌱 Smart Crop Invasion Advisor</h1>
+        <p>AI-powered early crop health advisory system</p>
+    </header>
+
+    <main>
+
+        <!-- INPUT SECTION -->
+
+        <div class="card">
+
+            <h2>🔍 Analyze Your Crop</h2>
+
+            <label for="crop">Choose Crop</label>
+
+            <select id="crop">
+                <option value="">Select a crop</option>
+                <option value="Tomato">Tomato</option>
+                <option value="Rice">Rice</option>
+                <option value="Cotton">Cotton</option>
+                <option value="Wheat">Wheat</option>
+                <option value="Chilli">Chilli</option>
+            </select>
+
+
+            <label for="stage">Growth Stage</label>
+
+            <select id="stage">
+                <option value="">Select growth stage</option>
+                <option value="Seedling">Seedling</option>
+                <option value="Vegetative">Vegetative</option>
+                <option value="Flowering">Flowering</option>
+                <option value="Fruiting">Fruiting</option>
+            </select>
+
+            <label for="cropImage">📷 Upload Crop Image (Optional)</label>
+
+<input
+    type="file"
+    id="cropImage"
+    accept="image/*"
+>
+    
+
+
+            <label for="symptoms">Describe Symptoms</label>
+
+            <textarea
+                id="symptoms"
+                placeholder="Example: White spots on leaves and leaves are curling...">
+            </textarea>
+
+
+            <button onclick="analyzeCrop()">
+                🔍 Analyze Crop
+            </button>
+
+        </div>
+
+
+        <!-- RESULT SECTION -->
+
+        <div class="card hidden" id="result">
+
+            <h2>🌱 Crop Health Advisory</h2>
+
+            <p>
+                <strong>🌾 Crop:</strong>
+                <span id="resultCrop"></span>
+            </p>
+
+            <p>
+                <strong>📈 Growth Stage:</strong>
+                <span id="resultStage"></span>
+            </p>
+
+            <hr>
+
+
+            <h3>⚠️ Risk Level</h3>
+
+            <p id="riskLevel">
+                MODERATE
+            </p>
+
+
+            <h3>🔎 Possible Concern</h3>
+
+            <p id="possibleConcern">
+                Possible pest or disease-related crop stress.
+            </p>
+
+
+            <h3>📋 Why?</h3>
+
+            <p id="reason">
+                The reported symptoms may be associated with
+                several crop-health concerns and should be
+                monitored carefully.
+            </p>
+
+
+            <h3>🛡️ Recommended Actions</h3>
+
+<ol>
+    <li>Inspect the affected leaves and nearby plants.</li>
+    <li>Check whether the symptoms are spreading.</li>
+    <li>Remove or separate severely affected plant material where appropriate.</li>
+    <li>Continue monitoring the crop regularly.</li>
+    <li>Consult a local agricultural expert if the condition worsens.</li>
+</ol>
+
+
+            <h3>🌿 Prevention</h3>
+
+            <p>
+                Continue regular crop monitoring and maintain
+                appropriate crop-care practices.
+            </p>
+
+
+            <p class="warning">
+                ⚠️ This is an AI-assisted preliminary advisory,
+                not a definitive diagnosis.
+            </p>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        Smart Crop Invasion Advisor | Hackathon MVP
+    </footer>
+
+
+    <script>
+
+        function analyzeCrop() {
+
+            // Get user input
+
+            const crop =
+                document.getElementById("crop").value;
+
+            const stage =
+                document.getElementById("stage").value;
+
+            const symptoms =
+                document.getElementById("symptoms").value.trim();
+
+
+            // Check whether all information is entered
+
+            if (
+                crop === "" ||
+                stage === "" ||
+                symptoms === ""
+            ) {
+
+                alert(
+                    "Please enter the crop, growth stage, and symptoms."
+                );
+
+                return;
+            }
+
+
+            // Show result section
+
+            document
+                .getElementById("result")
+                .classList
+                .remove("hidden");
+
+
+            // Display crop name
+
+            document
+                .getElementById("resultCrop")
+                .textContent = crop;
+
+
+            // Display growth stage
+
+            document
+                .getElementById("resultStage")
+                .textContent = stage;
+
+
+            // Display possible concern
+
+            document
+                .getElementById("possibleConcern")
+                .textContent =
+                "Possible pest or disease-related crop stress.";
+                // Simple demo risk assessment
+
+let risk = "MODERATE";
+
+if (
+    symptoms.toLowerCase().includes("spreading") ||
+    symptoms.toLowerCase().includes("many") ||
+    symptoms.toLowerCase().includes("severe") ||
+    symptoms.toLowerCase().includes("dying")
+) {
+    risk = "HIGH";
+}
+
+else if (
+    symptoms.toLowerCase().includes("small") ||
+    symptoms.toLowerCase().includes("few")
+) {
+    risk = "LOW";
+}
+
+document.getElementById("riskLevel").textContent = risk;
+
+
+            // Display reason using symptoms
+
+            document
+                .getElementById("reason")
+                .textContent =
+                "The reported symptoms — " +
+                symptoms +
+                " — may be associated with several crop-health concerns and should be monitored carefully.";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
